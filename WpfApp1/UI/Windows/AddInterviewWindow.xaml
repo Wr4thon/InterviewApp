@@ -1,0 +1,37 @@
+﻿<mah:MetroWindow x:Class="InterviewApp.UI.Windows.AddInterviewWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:companiesControls="clr-namespace:InterviewApp.UI.Controls.Companies"
+                 xmlns:InterviewApp="clr-namespace:InterviewApp"
+                 xmlns:local="clr-namespace:InterviewApp.UI.Windows"
+                 Title="Add Interview"
+                 Width="800"
+                 Height="450"
+                 WindowStartupLocation="CenterScreen"
+                 DataContext="{Binding RelativeSource={RelativeSource self}}">
+  <StackPanel>
+    <ComboBox ItemsSource="{Binding Companies}" SelectedItem="{Binding SelectedCompany}" DisplayMemberPath="Name"/>
+    <ContentControl>
+      <ContentControl.Resources>
+        <DataTemplate x:Key="EditCompany" >
+          <companiesControls:EditCompanyControl Company="{Binding NewCompany, RelativeSource={RelativeSource AncestorType=local:AddInterviewWindow}}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="ShowCompany" >
+          <companiesControls:CompanyDetailControl Company="{Binding SelectedCompany, RelativeSource={RelativeSource AncestorType=local:AddInterviewWindow}}"/>
+        </DataTemplate>
+      </ContentControl.Resources>
+      <ContentControl.Style>
+        <Style TargetType="{x:Type ContentControl}">
+          <Setter Property="ContentTemplate" Value="{StaticResource ShowCompany}" />
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding SelectedCompany}" Value="{x:Static InterviewApp:Company.AddNew}">
+              <Setter Property="ContentTemplate" Value="{StaticResource EditCompany}" />
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </ContentControl.Style>
+    </ContentControl>
+    <Button IsDefault="True" Click="acceptButton_Click">OK</Button>
+  </StackPanel>
+</mah:MetroWindow>

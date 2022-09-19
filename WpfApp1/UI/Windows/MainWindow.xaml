@@ -1,0 +1,34 @@
+﻿<mah:MetroWindow x:Class="InterviewApp.UI.Windows.MainWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:interviewsControls="clr-namespace:InterviewApp.UI.Controls.Interviews"
+                 Title="MainWindow"
+                 Width="800"
+                 Height="450"
+                 WindowStartupLocation="CenterScreen"
+                 mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource self}}">
+  <mah:MetroWindow.LeftWindowCommands>
+    <mah:WindowCommands>
+      <Button ToolTip="Settings">
+        <iconPacks:PackIconModern Kind="Cog" />
+      </Button>
+    </mah:WindowCommands>
+  </mah:MetroWindow.LeftWindowCommands>
+
+  <TabControl>
+    <TabItem Header="Interviews">
+      <Grid>
+        <ListBox HorizontalAlignment="Left" Width="265" Margin="10,10,0,43"
+                 ItemsSource="{Binding Interviews}"
+                 SelectedItem="{Binding SelectedInterview}"
+                 DisplayMemberPath="Name"/>
+        <interviewsControls:InterviewDetailControl Interview="{Binding SelectedInterview}" Margin="280,10,10,43"></interviewsControls:InterviewDetailControl>
+        <Button Command="{Binding AddInterview}" Content="Add" Margin="213,351,519,10"></Button>
+      </Grid>
+    </TabItem>
+  </TabControl>
+</mah:MetroWindow>
